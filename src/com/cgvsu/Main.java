@@ -3,6 +3,7 @@ package com.cgvsu;
 import com.cgvsu.delete.Delete;
 import com.cgvsu.delete.DeleteException;
 import com.cgvsu.model.Model;
+import com.cgvsu.model.Polygon;
 import com.cgvsu.objreader.ObjReader;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class Main {
     public static void main(String[] args) throws IOException, DeleteException {
         Scanner scanner = new Scanner(System.in);
 
-        Path fileName = Path.of("../ObjModels/Faceform/WrapHead.obj");
+        Path fileName = Path.of("../ObjModels/Faceform/tmp.obj");
         String fileContent = Files.readString(fileName);
 
         System.out.println("Loading model ...");
@@ -36,7 +37,7 @@ public class Main {
         List<String> stringIndex = List.of(indexes.split(" "));
         for (String s : stringIndex) {
             if (s.matches("[-+]?\\d+")) {
-                listIndex.add(Integer.valueOf(s));
+                listIndex.add(Integer.parseInt(s) - 1);
             }
         }
         Delete.deleteVertexes(model, listIndex);

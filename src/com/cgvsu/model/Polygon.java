@@ -22,12 +22,12 @@ public class Polygon {
     }
 
     public void setTextureVertexIndices(List<Integer> textureVertexIndices) {
-        assert textureVertexIndices.size() >= 3;
+        //assert textureVertexIndices.size() >= 3;
         this.textureVertexIndices = textureVertexIndices;
     }
 
     public void setNormalIndices(List<Integer> normalIndices) {
-        assert normalIndices.size() >= 3;
+        //assert normalIndices.size() >= 3;
         this.normalIndices = normalIndices;
     }
 
@@ -41,5 +41,13 @@ public class Polygon {
 
     public List<Integer> getNormalIndices() {
         return normalIndices;
+    }
+
+    public void offSet(int index) {
+        for (int i = 0; i < vertexIndices.size(); i++) {
+            if (vertexIndices.get(i) > index) {
+                vertexIndices.set(i, vertexIndices.get(i) - 1);
+            }
+        }
     }
 }

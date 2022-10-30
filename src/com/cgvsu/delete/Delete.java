@@ -23,13 +23,13 @@ public class Delete {
 
         for (Integer index : arrVertexes) {
 
-            if (index > vertexesCount(model)) {
-                throw new  DeleteException();
+            if (index - offset > vertexesCount(model)) {
+                throw new DeleteException();
             }
 
             deleteVertex(model, index - offset);
+            indexOffset(model, index - offset);
             offset++;
-            indexOffset(model, index);
         }
     }
 
@@ -37,7 +37,6 @@ public class Delete {
         boolean delete = false;
         List<Integer> deleteList = new ArrayList<>();
         int c = 0;
-
         for (Polygon polygon : model.polygons) {
             for (Integer i : polygon.getVertexIndices()) {
                 if (i == vertexIndex) {
@@ -47,6 +46,7 @@ public class Delete {
             }
             if (delete) {
                 deleteList.add(c);
+                delete = false;
             }
             c++;
         }
@@ -56,20 +56,14 @@ public class Delete {
         for (Integer d : deleteList) {
             model.polygons.remove(d - offSet);
             offSet++;
+
+
         }
     }
 
     private static void indexOffset(Model model, int index) {
-        List<Integer> vI;
-
         for (Polygon polygon : model.polygons) {
-            vI = polygon.getVertexIndices();
-            for (Integer i : vI) {
-                if (i > index) {
-                    i--;
-                }
-            }
-            polygon.setVertexIndices(vI);
+            polygon.offSet(index);
         }
     }
 }
