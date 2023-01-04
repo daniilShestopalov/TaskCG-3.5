@@ -15,6 +15,8 @@ public class Delete {
     private static void deleteVertex(Model model, int vertexIndex) {
         deletePolygons(model, vertexIndex);
         model.vertices.remove(vertexIndex);
+        model.textureVertices.remove(vertexIndex);
+        model.normals.remove(vertexIndex);
     }
 
     public static void deleteVertexes(Model model, List<Integer> arrVertexes) throws DeleteException {
